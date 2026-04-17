@@ -27,7 +27,7 @@
             </li>
             
             <!-- Data Pasien -->
-            @if(Auth::user()->hasRole('Superadmin') || Auth::user()->hasRole('admin') || Auth::user()->hasPermission('read-pasien'))
+            @if(Auth::check() && (Auth::user()->hasRole('Superadmin') || Auth::user()->hasRole('admin') || Auth::user()->hasPermission('read-pasien')))
             <li>
                 <a href="{{ route('pasien.index') }}" class="nav-item flex items-center space-x-3 p-3 rounded-lg text-white hover:bg-green-700 @if(request()->routeIs('pasien.*')) active @endif">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -39,7 +39,7 @@
             @endif
             
             <!-- Dashboard Survailance -->
-            @if(Auth::user()->hasRole('Superadmin') || Auth::user()->hasRole('admin') || Auth::user()->hasPermission('read-survailance'))
+            @if(Auth::check() && (Auth::user()->hasRole('Superadmin') || Auth::user()->hasRole('admin') || Auth::user()->hasPermission('read-survailance')))
             <li>
                 <a href="{{ route('survailance.dashboard') }}" class="nav-item flex items-center space-x-3 p-3 rounded-lg text-white hover:bg-green-700 @if(request()->routeIs('survailance.*')) active @endif">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -51,7 +51,7 @@
             @endif
             
             <!-- Rekap Diagnosa -->
-            @if(Auth::user()->hasRole('Superadmin') || Auth::user()->hasRole('admin') || Auth::user()->hasPermission('read-rekap-diagnosa'))
+            @if(Auth::check() && (Auth::user()->hasRole('Superadmin') || Auth::user()->hasRole('admin') || Auth::user()->hasPermission('read-rekap-diagnosa')))
             <li>
                 <a href="{{ route('rekap-diagnosa.index') }}" class="nav-item flex items-center space-x-3 p-3 rounded-lg text-white hover:bg-green-700 @if(request()->routeIs('rekap-diagnosa.*')) active @endif">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -63,7 +63,7 @@
             @endif
             
             <!-- Laporan -->
-            @if(Auth::user()->hasRole('superadmin') || Auth::user()->hasPermission('read-laporan'))
+            @if(Auth::check() && (Auth::user()->hasRole('superadmin') || Auth::user()->hasPermission('read-laporan')))
             <li>
                 <a href="{{ route('laporan.index') }}" class="nav-item flex items-center space-x-3 p-3 rounded-lg text-white hover:bg-green-700 @if(request()->routeIs('laporan.*')) active @endif">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -75,7 +75,7 @@
             @endif
             
             <!-- Utilitas -->
-            @if(Auth::user()->hasRole('superadmin') || Auth::user()->hasPermission('manage-users') || Auth::user()->hasPermission('manage-roles') || Auth::user()->hasPermission('manage-permissions') || Auth::user()->hasPermission('manage-permission-groups'))
+            @if(Auth::check() && (Auth::user()->hasRole('superadmin') || Auth::user()->hasPermission('manage-users') || Auth::user()->hasPermission('manage-roles') || Auth::user()->hasPermission('manage-permissions') || Auth::user()->hasPermission('manage-permission-groups')))
             <li x-data="{ open: false }">
                 <button @click="open = !open" class="nav-item flex items-center justify-between space-x-3 p-3 rounded-lg text-white hover:bg-green-700 w-full text-left @if(request()->routeIs('users.*') || request()->routeIs('roles.*') || request()->routeIs('permissions.*') || request()->routeIs('permission-groups.*')) active @endif">
                     <div class="flex items-center space-x-3">
@@ -93,7 +93,7 @@
                 <!-- Submenu -->
                 <ul x-show="open" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 transform -translate-y-2" x-transition:enter-end="opacity-100 transform translate-y-0" class="mt-2 space-y-1 pl-8" style="display: none;">
                     <!-- Manajemen Pengguna -->
-                    @if(Auth::user()->hasRole('superadmin') || Auth::user()->hasPermission('read-user'))
+                    @if(Auth::check() && (Auth::user()->hasRole('superadmin') || Auth::user()->hasPermission('read-user')))
                     <li>
                         <a href="{{ route('users.index') }}" class="flex items-center space-x-2 p-2 rounded-lg text-white hover:bg-green-700 text-sm @if(request()->routeIs('users.index')) bg-green-700 @endif">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -105,7 +105,7 @@
                     @endif
                     
                     <!-- Peran -->
-                    @if(Auth::user()->hasRole('superadmin') || Auth::user()->hasPermission('manage-roles'))
+                    @if(Auth::check() && (Auth::user()->hasRole('superadmin') || Auth::user()->hasPermission('manage-roles')))
                     <li>
                         <a href="{{ route('roles') }}" class="flex items-center space-x-2 p-2 rounded-lg text-white hover:bg-green-700 text-sm @if(request()->routeIs('roles')) bg-green-700 @endif">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -117,7 +117,7 @@
                     @endif
                     
                     <!-- Izin -->
-                    @if(Auth::user()->hasRole('superadmin') || Auth::user()->hasPermission('manage-permissions'))
+                    @if(Auth::check() && (Auth::user()->hasRole('superadmin') || Auth::user()->hasPermission('manage-permissions')))
                     <li>
                         <a href="{{ route('permissions') }}" class="flex items-center space-x-2 p-2 rounded-lg text-white hover:bg-green-700 text-sm @if(request()->routeIs('permissions')) bg-green-700 @endif">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -132,7 +132,7 @@
             @endif
             
             <!-- Pengaturan Poli -->
-            @if(Auth::user()->hasRole('Superadmin') || Auth::user()->hasRole('admin') || Auth::user()->hasPermission('manage-poli'))
+            @if(Auth::check() && (Auth::user()->hasRole('Superadmin') || Auth::user()->hasRole('admin') || Auth::user()->hasPermission('manage-poli')))
             <li>
                 <a href="{{ route('poli.index') }}" class="nav-item flex items-center space-x-3 p-3 rounded-lg text-white hover:bg-green-700 @if(request()->routeIs('poli.*')) active @endif">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -144,7 +144,7 @@
             @endif
             
             <!-- Kode ICD-10 -->
-            @if(Auth::user()->hasRole('superadmin') || Auth::user()->hasPermission('read-cdi'))
+            @if(Auth::check() && (Auth::user()->hasRole('superadmin') || Auth::user()->hasPermission('read-cdi')))
             <li>
                 <a href="{{ route('icd10.index') }}" class="nav-item flex items-center space-x-3 p-3 rounded-lg text-white hover:bg-green-700 @if(request()->routeIs('icd10.*')) active @endif">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

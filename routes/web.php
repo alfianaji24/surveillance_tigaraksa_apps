@@ -20,12 +20,19 @@ use App\Http\Controllers\SurvailanceController;
 // Authentication Routes
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::get('/', function () {
+        return view('welcome');
+    })->name('welcome');
     Route::post('/login', [AuthController::class, 'login']);
 });
 
+// Root route - redirect to dashboard if authenticated, welcome if not
 Route::get('/', function () {
-    return redirect()->route('login');
-});
+    if (Auth::check()) {
+        return redirect()->route('dashboard');
+    }
+    return view('welcome');
+})->name('root');
 
 // Test Routes (no auth for debugging)
 Route::get('/test-form', [TestController::class, 'testForm'])->name('test.form');

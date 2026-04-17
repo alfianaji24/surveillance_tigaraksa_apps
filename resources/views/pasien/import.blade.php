@@ -33,11 +33,6 @@
                                 <i class="fas fa-file-excel me-2"></i>Import File PKM
                             </button>
                         </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="manual-tab" data-bs-toggle="tab" data-bs-target="#klinik" type="button" role="tab" aria-controls="klinik" aria-selected="false">
-                                <i class="fas fa-user-plus me-2"></i>Input Data Klinik
-                            </button>
-                        </li>
                         <!-- <li class="nav-item" role="presentation">
                             <button class="nav-link" id="manual-tab" data-bs-toggle="tab" data-bs-target="#manual" type="button" role="tab" aria-controls="manual" aria-selected="false">
                                 <i class="fas fa-user-plus me-2"></i>Input Data Manual
@@ -50,19 +45,145 @@
                         <!-- Tab 1: Import File PKM -->
                         <div class="tab-pane fade show active" id="pkm" role="tabpanel" aria-labelledby="pkm-tab">
                     <div id="pkmUploadStep">
-                            <div class="alert alert-info">
-                                <i class="fas fa-info-circle me-2"></i>
-                                <strong>Import Data PKM dari Template (Excel/CSV Format)</strong><br>
-                                Upload file Excel template PKM untuk mengimport data pasien langsung ke database.
-                                <br><br>
-                                <strong>Format Kolom Template PKM:</strong><br>
-                                A: No | B: Tanggal Kunjungan | C: Poli | D: No Rekam Medik | E: NIK<br>
-                                F: Nama Pasien | G: Alamat | H: No HP | I: Tanggal Lahir<br>
-                                J: Umur | K: Jenis Kelamin | L: Jenis Pasien | M: No BPJS | N: Jenis Bayar<br>
-                                O: Anamnesa | P: Diagnosa | Q: Pemeriksa | R: Status | S: RS Rujukan
-                                <br><br>
-                                <small><i class="fas fa-shield-alt"></i> <strong>Validasi Otomatis:</strong> Required fields, data format, dan structure validation</small>
-                            </div>
+<div class="alert alert-info border-0 shadow-sm p-4">
+    
+    <div class="d-flex align-items-center mb-3">
+        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="min-width: 50px; height: 50px;">
+            <i class="fas fa-file-excel fa-lg"></i>
+        </div>
+        <div>
+            <h5 class="mb-0 text-dark"><strong>Panduan Import Data Pasien PKM</strong></h5>
+            <p class="text-secondary mb-0">Pastikan file Excel Anda mengikuti urutan kolom di bawah ini untuk menghindari kegagalan sistem.</p>
+        </div>
+    </div>
+
+    <hr>
+
+    <p class="fw-bold mb-2 small text-uppercase text-primary tracking-wider">
+        <i class="fas fa-eye me-2"></i>Contoh Tampilan Baris Pertama:
+    </p>
+    <div class="table-responsive mb-4">
+        <table class="table table-sm table-bordered bg-white text-center mb-0" style="font-size: 0.8rem;">
+            <thead class="table-dark">
+                <tr>
+                    <th width="5%">A</th>
+                    <th width="12%">B</th>
+                    <th width="10%">C</th>
+                    <th width="12%">D</th>
+                    <th width="12%">E</th>
+                    <th width="15%">F</th>
+                    <th class="bg-secondary text-white">... G s/d S</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="fw-bold bg-light text-dark">
+                    <td>no</td>
+                    <td>tanggal_kunjungan</td>
+                    <td>poli</td>
+                    <td>no_rekam_medik</td>
+                    <td>nik</td>
+                    <td>nama_pasien</td>
+                    <td class="text-muted small">Lihat daftar di bawah</td>
+                </tr>
+                <tr class="text-muted">
+                    <td>1</td>
+                    <td>2026-03-23</td>
+                    <td>Anak</td>
+                    <td>0081***</td>
+                    <td>360303***</td>
+                    <td><span class="badge bg-secondary">DATA TERPROTEKSI</span></td>
+                    <td>...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p class="fw-bold mb-2 small text-uppercase text-primary tracking-wider">
+        <i class="fas fa-list-ol me-2"></i>Daftar Kolom Lengkap (Wajib Berurutan):
+    </p>
+    <div class="row g-2">
+        <div class="col-md-4">
+            <div class="d-grid gap-1">
+                <div class="p-2 border rounded bg-white small d-flex align-items-center">
+                    <b class="text-primary me-2" style="width: 15px;">A</b> <span>no</span>
+                </div>
+                <div class="p-2 border rounded bg-white small d-flex align-items-center">
+                    <b class="text-primary me-2" style="width: 15px;">B</b> <span>tanggal_kunjungan</span>
+                </div>
+                <div class="p-2 border rounded bg-white small d-flex align-items-center">
+                    <b class="text-primary me-2" style="width: 15px;">C</b> <span>poli</span>
+                </div>
+                <div class="p-2 border rounded bg-white small d-flex align-items-center">
+                    <b class="text-primary me-2" style="width: 15px;">D</b> <span>no_rekam_medik</span>
+                </div>
+                <div class="p-2 border rounded bg-white small d-flex align-items-center">
+                    <b class="text-primary me-2" style="width: 15px;">E</b> <span>nik</span>
+                </div>
+                <div class="p-2 border rounded bg-white small d-flex align-items-center">
+                    <b class="text-primary me-2" style="width: 15px;">F</b> <span>nama_pasien</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="d-grid gap-1">
+                <div class="p-2 border rounded bg-white small d-flex align-items-center">
+                    <b class="text-primary me-2" style="width: 15px;">G</b> <span>alamat</span>
+                </div>
+                <div class="p-2 border rounded bg-white small d-flex align-items-center">
+                    <b class="text-primary me-2" style="width: 15px;">H</b> <span>no_hp</span>
+                </div>
+                <div class="p-2 border rounded bg-white small d-flex align-items-center">
+                    <b class="text-primary me-2" style="width: 15px;">I</b> <span>tanggal_lahir</span>
+                </div>
+                <div class="p-2 border rounded bg-white small d-flex align-items-center">
+                    <b class="text-primary me-2" style="width: 15px;">J</b> <span>umur</span>
+                </div>
+                <div class="p-2 border rounded bg-white small d-flex align-items-center">
+                    <b class="text-primary me-2" style="width: 15px;">K</b> <span>jenis_kelamin</span>
+                </div>
+                <div class="p-2 border rounded bg-white small d-flex align-items-center">
+                    <b class="text-primary me-2" style="width: 15px;">L</b> <span>jenis_pasien</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="d-grid gap-1">
+                <div class="p-2 border rounded bg-white small d-flex align-items-center">
+                    <b class="text-primary me-2" style="width: 15px;">M</b> <span>no_bpjs</span>
+                </div>
+                <div class="p-2 border rounded bg-white small d-flex align-items-center">
+                    <b class="text-primary me-2" style="width: 15px;">N</b> <span>jenis_bayar</span>
+                </div>
+                <div class="p-2 border rounded bg-white small d-flex align-items-center">
+                    <b class="text-primary me-2" style="width: 15px;">O</b> <span>anamnesa</span>
+                </div>
+                <div class="p-2 border rounded bg-white small d-flex align-items-center">
+                    <b class="text-primary me-2" style="width: 15px;">P</b> <span>diagnosa</span>
+                </div>
+                <div class="p-2 border rounded bg-white small d-flex align-items-center">
+                    <b class="text-primary me-2" style="width: 15px;">Q</b> <span>pemeriksa</span>
+                </div>
+                <div class="p-2 border rounded bg-white small d-flex align-items-center">
+                    <b class="text-primary me-2" style="width: 15px;">R</b> <span>status</span>
+                </div>
+                <div class="p-2 border rounded bg-white small d-flex align-items-center">
+                    <b class="text-primary me-2" style="width: 15px;">S</b> <span>rs_rujukan</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+        <div class="small">
+            <span class="badge bg-warning text-dark me-2">PENTING</span>
+            <span class="text-muted italic">Format Tanggal wajib <strong>YYYY-MM-DD</strong> dan NIK harus <strong>16 digit</strong>.</span>
+        </div>
+    </div>
+</div>
                         
                         <div class="row">
                             <div class="col-md-6">
@@ -205,394 +326,177 @@
     </div>
 </div>
 
+
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const uploadBtn = document.getElementById('uploadBtn');
-    const backToUploadBtn = document.getElementById('backToUpload');
-    const blastBtn = document.getElementById('blastBtn');
-    const importDirectBtn = document.getElementById('importDirectBtn');
-    const saveAllBtn = document.getElementById('saveAllBtn');
-    const importMoreBtn = document.getElementById('importMoreBtn');
-    const importPKMBtn = document.getElementById('importPKMBtn');
-    const excelFile = document.getElementById('excelFile');
-    const pkmFile = document.getElementById('pkmFile');
-    const uploadPKMBtn = document.getElementById('uploadPKMBtn');
-    const pkmImportMoreBtn = document.getElementById('pkmImportMoreBtn');
+document.addEventListener("DOMContentLoaded", function() {
+    console.log("PKM Import script loaded");
+    
+    // Get all DOM elements
+    const uploadBtn = document.getElementById("uploadBtn");
+    const backToUploadBtn = document.getElementById("backToUpload");
+    const blastBtn = document.getElementById("blastBtn");
+    const importDirectBtn = document.getElementById("importDirectBtn");
+    const saveAllBtn = document.getElementById("saveAllBtn");
+    const importMoreBtn = document.getElementById("importMoreBtn");
+    const importPKMBtn = document.getElementById("importPKMBtn");
+    const excelFile = document.getElementById("excelFile");
+    const pkmFile = document.getElementById("pkmFile");
+    const uploadPKMBtnElement = document.getElementById("uploadPKMBtn");
+    const pkmImportMoreBtn = document.getElementById("pkmImportMoreBtn");
+    
+    console.log("DOM Elements:", {
+        uploadPKMBtnElement: uploadPKMBtnElement,
+        pkmFile: pkmFile
+    });
     
     let excelData = [];
     let processedData = [];
 
-    // Upload Excel
-    uploadBtn.addEventListener('click', function() {
-        const file = excelFile.files[0];
-        if (!file) {
-            alert('Silakan pilih file CSV terlebih dahulu');
-            return;
-        }
-
-        const formData = new FormData();
-        formData.append('excel_file', file);
-
-        showStep('loadingStep');
-
-        fetch('{{ route("pasien.import-excel") }}', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+    // PKM Upload & Preview Button - MAIN FUNCTIONALITY
+    if (uploadPKMBtnElement) {
+        console.log("Adding event listener to uploadPKMBtn");
+        
+        uploadPKMBtnElement.addEventListener("click", function() {
+            console.log("PKM Upload button clicked!");
+            
+            const file = pkmFile.files[0];
+            if (!file) {
+                alert("Silakan pilih file Excel/CSV PKM terlebih dahulu");
+                return;
             }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                excelData = data.data;
-                displayPreview(data.data);
-                showStep('previewStep');
-            } else {
-                alert('Error: ' + data.message);
-                showStep('uploadStep');
+
+            if (!confirm("Apakah Anda yakin ingin mengimport data PKM langsung ke database?\n\nData akan disimpan di tabel pasiens dan dapat langsung digunakan. No Rekam Medik boleh duplicate untuk multiple visits.")) {
+                return;
             }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Terjadi kesalahan saat upload file');
-            showStep('uploadStep');
-        });
-    });
 
-    // Back to Upload
-    backToUploadBtn.addEventListener('click', function() {
-        showStep('uploadStep');
-        excelFile.value = '';
-    });
-
-    // Blast Data to Form
-    blastBtn.addEventListener('click', function() {
-        if (excelData.length === 0) {
-            alert('Tidak ada data untuk di-blast');
-            return;
-        }
-
-        showStep('loadingStep');
-
-        fetch('{{ route("pasien.blast-data") }}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify(excelData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Simpan data ke sessionStorage untuk form create
-                sessionStorage.setItem('blastData', JSON.stringify(data.data[0]));
-                
-                // Redirect ke form create
-                window.location.href = '{{ route("pasien.create") }}';
-            } else {
-                alert('Error: ' + data.message);
-                showStep('previewStep');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Terjadi kesalahan saat blast data');
-            showStep('previewStep');
-        });
-    });
-
-    // Import Langsung ke Database
-    importDirectBtn.addEventListener('click', function() {
-        if (excelData.length === 0) {
-            alert('Tidak ada data untuk diimport');
-            return;
-        }
-
-        if (!confirm(`Apakah Anda yakin ingin mengimport ${excelData.length} data langsung ke database?\n\nData yang sudah ada tidak akan ditimpa.`)) {
-            return;
-        }
-
-        showStep('loadingStep');
-
-        const formData = new FormData();
-        const file = excelFile.files[0];
-        formData.append('excel_file', file);
-
-        fetch('{{ route("pasien.import-to-database") }}', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Tampilkan hasil import
-                document.getElementById('successMessage').innerHTML = `
-                    <strong>Import Selesai!</strong><br>
-                    ✅ ${data.imported} data berhasil disimpan<br>
-                    ⚠️ ${data.skipped} data dilewati<br>
-                    <br>
-                    ${data.errors.length > 0 ? '<strong>Detail Error:</strong><br>' + data.errors.slice(0, 5).join('<br>') + (data.errors.length > 5 ? '<br>...dan ' + (data.errors.length - 5) + ' error lainnya' : '') : 'Semua data berhasil diimport tanpa error!'}
-                `;
-                showStep('successStep');
-            } else {
-                alert('Error: ' + data.message);
-                showStep('previewStep');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Terjadi kesalahan saat import data');
-            showStep('previewStep');
-        });
-    });
-
-    // Save All Data
-    saveAllBtn.addEventListener('click', function() {
-        if (excelData.length === 0) {
-            alert('Tidak ada data untuk disimpan');
-            return;
-        }
-
-        if (!confirm(`Apakah Anda yakin ingin menyimpan ${excelData.length} data pasien?`)) {
-            return;
-        }
-
-        showStep('loadingStep');
-
-        fetch('{{ route("pasien.blast-data") }}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify(excelData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                processedData = data.data;
-                saveAllPatients(data.data);
-            } else {
-                alert('Error: ' + data.message);
-                showStep('previewStep');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Terjadi kesalahan saat memproses data');
-            showStep('previewStep');
-        });
-    });
-
-    // Import More
-    importMoreBtn.addEventListener('click', function() {
-        showStep('uploadStep');
-        excelFile.value = '';
-    });
-
-    // Import PKM Langsung ke Database
-    importPKMBtn.addEventListener('click', function() {
-        const file = pkmFile.files[0];
-        if (!file) {
-            alert('Silakan pilih file Excel/CSV PKM terlebih dahulu');
-            return;
-        }
-
-        if (!confirm('Apakah Anda yakin ingin mengimport data PKM langsung ke database?\n\nData akan disimpan di tabel pasiens dan dapat langsung digunakan. No Rekam Medik boleh duplicate untuk multiple visits.')) {
-            return;
-        }
-
-        document.getElementById('pkmUploadStep').style.display = 'none';
-        document.getElementById('pkmSuccessStep').style.display = 'none';
-
-        const formData = new FormData();
-        formData.append('file', file);
-
-        fetch('{{ route("pasien.import-pkm") }}', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                document.getElementById('pkmSuccessMessage').textContent = data.message;
-                document.getElementById('pkmSuccessStep').style.display = 'block';
-            } else {
-                alert('Error: ' + data.message);
-                document.getElementById('pkmUploadStep').style.display = 'block';
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Terjadi kesalahan saat import data PKM');
-            document.getElementById('pkmUploadStep').style.display = 'block';
-        });
-    });
-
-    // PKM Import More
-    pkmImportMoreBtn.addEventListener('click', function() {
-        pkmFile.value = '';
-        document.getElementById('pkmUploadStep').style.display = 'block';
-        document.getElementById('pkmSuccessStep').style.display = 'none';
-    });
-
-    function saveAllPatients(data) {
-        let successCount = 0;
-        let errorCount = 0;
-        let promises = [];
-
-        data.forEach(patientData => {
-            const promise = fetch('{{ route("pasien.store") }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify(patientData)
-            })
-            .then(response => response.json())
-            .then(result => {
-                if (result.success) {
-                    successCount++;
-                } else {
-                    errorCount++;
-                }
-            })
-            .catch(error => {
-                errorCount++;
-            });
-
-            promises.push(promise);
-        });
-
-        Promise.all(promises).then(() => {
-            document.getElementById('successMessage').textContent = 
-                `${successCount} data berhasil disimpan, ${errorCount} data gagal.`;
-            showStep('successStep');
-        });
-    }
-
-    function showStep(stepId) {
-        document.getElementById('uploadStep').style.display = 'none';
-        document.getElementById('previewStep').style.display = 'none';
-        document.getElementById('loadingStep').style.display = 'none';
-        document.getElementById('successStep').style.display = 'none';
-        document.getElementById(stepId).style.display = 'block';
-    }
-
-    function displayPreview(data) {
-        const tbody = document.getElementById('previewTableBody');
-        tbody.innerHTML = '';
-
-        data.forEach((row, index) => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${index + 1}</td>
-                <td>${row.nama_pasien || '-'}</td>
-                <td>${row.no_rekam_medik || '-'}</td>
-                <td>${row.nik || '-'}</td>
-                <td>${row.poli || '-'}</td>
-                <td>${row.tanggal_lahir || '-'}</td>
-                <td>-</td>
-                <td>${row.jenis_kelamin || '-'}</td>
-                <td>${row.jenis_pasien || '-'}</td>
-                <td>${(row.anamnesa || '').substring(0, 50)}${row.anamnesa && row.anamnesa.length > 50 ? '...' : ''}</td>
-                <td>${row.diagnosa_icd10 || '-'}</td>
-                <td>${row.status || '-'}</td>
-            `;
-            tbody.appendChild(tr);
-        });
-    }
-
-    // Template help function
-    function showTemplateHelp() {
-        const helpModal = `
-            <div class="modal fade" id="templateHelpModal" tabindex="-1">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">
-                                <i class="fas fa-question-circle me-2"></i>Panduan Template PKM
-                            </h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            console.log("Starting PKM upload process...");
+            
+            // Show loading state
+            const uploadStep = document.getElementById("pkmUploadStep");
+            const successStep = document.getElementById("pkmSuccessStep");
+            
+            if (uploadStep) uploadStep.style.display = "none";
+            if (successStep) successStep.style.display = "none";
+            
+            // Create loading indicator
+            const loadingHtml = `
+                <div id="pkmLoadingStep" style="display: block;">
+                    <div class="text-center py-5">
+                        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+                            <span class="visually-hidden">Loading...</span>
                         </div>
-                        <div class="modal-body">
-                            <h6><i class="fas fa-file-excel me-2"></i>Template Structure</h6>
-                            <p>Template PKM memiliki 17 kolom (A-Q) dengan format sebagai berikut:</p>
-                            
-                            <div class="table-responsive">
-                                <table class="table table-sm table-bordered">
-                                    <thead class="table-light">
-                                        <tr>
-                                            <th>Kolom</th>
-                                            <th>Field</th>
-                                            <th>Required</th>
-                                            <th>Format</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr><td>A</td><td>Tanggal Kunjungan</td><td>✓</td><td>YYYY-MM-DD</td></tr>
-                                        <tr><td>B</td><td>Poli</td><td>✓</td><td>Text</td></tr>
-                                        <tr><td>C</td><td>No Rekam Medik</td><td>✓</td><td>Text/Number</td></tr>
-                                        <tr><td>D</td><td>NIK</td><td></td><td>16 Digit</td></tr>
-                                        <tr><td>E</td><td>Nama Pasien</td><td>✓</td><td>Text</td></tr>
-                                        <tr><td>F</td><td>Alamat</td><td></td><td>Text</td></tr>
-                                        <tr><td>G</td><td>No HP</td><td></td><td>Phone Number</td></tr>
-                                        <tr><td>H</td><td>Tanggal Lahir</td><td></td><td>YYYY-MM-DD</td></tr>
-                                        <tr><td>I</td><td>Jenis Kelamin</td><td></td><td>L/P</td></tr>
-                                        <tr><td>J</td><td>Jenis Pasien</td><td></td><td>Text</td></tr>
-                                        <tr><td>K</td><td>No BPJS</td><td></td><td>Number</td></tr>
-                                        <tr><td>L</td><td>Jenis Bayar</td><td></td><td>Text</td></tr>
-                                        <tr><td>M</td><td>Anamnesa</td><td></td><td>Text</td></tr>
-                                        <tr><td>N</td><td>Diagnosa ICD10</td><td></td><td>Code</td></tr>
-                                        <tr><td>O</td><td>Pemeriksa</td><td></td><td>Text</td></tr>
-                                        <tr><td>P</td><td>Status</td><td></td><td>Text</td></tr>
-                                        <tr><td>Q</td><td>RS Rujukan</td><td></td><td>Text</td></tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            
-                            <hr>
-                            
-                            <h6><i class="fas fa-lightbulb me-2"></i>Tips & Best Practices</h6>
-                            <ul>
-                                <li><strong>Required Fields:</strong> Nama Pasien dan No Rekam Medik harus diisi</li>
-                                <li><strong>Date Format:</strong> Gunakan format YYYY-MM-DD untuk tanggal</li>
-                                <li><strong>Header Row:</strong> Baris pertama adalah header, data dimulai dari baris ke-2</li>
-                                <li><strong>Empty Rows:</strong> Sistem akan otomatis berhenti jika menemukan 5 baris kosong berturut-turut</li>
-                                <li><strong>Validation:</strong> Sistem akan memvalidasi struktur template dan required fields</li>
-                            </ul>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                            <button type="button" class="btn btn-primary" onclick="window.open('/template_pkm/template_pkm.xlsx', '_blank')">
-                                <i class="fas fa-download me-1"></i>Download Template
-                            </button>
+                        <h5 class="mt-3">Sedang Mengimport Data...</h5>
+                        <p class="text-muted">Mohon tunggu, proses import sedang berjalan. Jangan tutup halaman ini.</p>
+                        <div class="progress mt-3">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%"></div>
                         </div>
                     </div>
                 </div>
-            </div>
-        `;
+            `;
+            
+            if (uploadStep) {
+                uploadStep.insertAdjacentHTML("afterend", loadingHtml);
+            }
+
+            const formData = new FormData();
+            formData.append("file", file);
+
+            fetch("{{ route('pasien.import-pkm') }}", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("PKM Upload response:", data);
+                
+                // Remove loading indicator
+                const loadingStep = document.getElementById("pkmLoadingStep");
+                if (loadingStep) {
+                    loadingStep.remove();
+                }
+                
+                if (data.success) {
+                    // Show success message
+                    const successHtml = `
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <h5 class="alert-heading"><i class="fas fa-check-circle me-2"></i>Import Berhasil!</h5>
+                            <p class="mb-2">${data.message}</p>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <strong>Data Diimport:</strong> ${data.imported || 0}
+                                </div>
+                                <div class="col-md-4">
+                                    <strong>Data Dilewati:</strong> ${data.skipped || 0}
+                                </div>
+                                <div class="col-md-4">
+                                    <strong>Total Errors:</strong> ${data.errors ? data.errors.length : 0}
+                                </div>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    `;
+                    
+                    const successMessage = document.getElementById("pkmSuccessMessage");
+                    if (successMessage) {
+                        successMessage.innerHTML = successHtml;
+                    }
+                    
+                    if (successStep) {
+                        successStep.style.display = "block";
+                        successStep.scrollIntoView({ behavior: "smooth" });
+                    }
+                    
+                    alert("✅ Import Berhasil! " + (data.imported || 0) + " data pasien berhasil diimport.");
+                    
+                } else {
+                    alert("❌ Import Gagal: " + data.message);
+                    if (uploadStep) uploadStep.style.display = "block";
+                }
+            })
+            .catch(error => {
+                console.error("PKM Upload error:", error);
+                
+                // Remove loading indicator
+                const loadingStep = document.getElementById("pkmLoadingStep");
+                if (loadingStep) {
+                    loadingStep.remove();
+                }
+                
+                alert("❌ Koneksi Error: Terjadi kesalahan saat menghubungi server.");
+                if (uploadStep) uploadStep.style.display = "block";
+            });
+        });
         
-        // Remove existing modal if any
-        const existingModal = document.getElementById('templateHelpModal');
-        if (existingModal) {
-            existingModal.remove();
-        }
-        
-        // Add modal to body and show
-        document.body.insertAdjacentHTML('beforeend', helpModal);
-        const modal = new bootstrap.Modal(document.getElementById('templateHelpModal'));
-        modal.show();
+        console.log("PKM Upload button event listener added successfully");
+    } else {
+        console.error("PKM Upload button not found!");
     }
+
+    // PKM Import More button
+    if (pkmImportMoreBtn) {
+        pkmImportMoreBtn.addEventListener("click", function() {
+            if (pkmFile) pkmFile.value = "";
+            
+            const uploadStep = document.getElementById("pkmUploadStep");
+            const successStep = document.getElementById("pkmSuccessStep");
+            
+            if (uploadStep) uploadStep.style.display = "block";
+            if (successStep) successStep.style.display = "none";
+        });
+    }
+
+    // Notification function
+    function showNotification(title, message, type = "info") {
+        console.log("Notification:", title, message);
+        // Simple alert for now
+        alert(title + ": " + message);
+    }
+
+    console.log("PKM Import script initialization complete");
 });
 </script>
 @endsection

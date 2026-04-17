@@ -13,8 +13,8 @@ class PasienController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('permission:read-pasien')->only(['index', 'show']);
-        $this->middleware('permission:create-pasien')->only(['create', 'store']);
+        $this->middleware('permission:read-pasien')->only(['index', 'show', 'importPage']);
+        $this->middleware('permission:create-pasien')->only(['create', 'store', 'importPKM', 'importExcel']);
         $this->middleware('permission:update-pasien')->only(['edit', 'update']);
         $this->middleware('permission:delete-pasien')->only(['destroy']);
     }
@@ -606,8 +606,12 @@ class PasienController extends Controller
     public function importPKM(Request $request)
     {
         $request->validate([
-            'file' => 'required|mimes:xlsx,xls,csv'
+            'file' => 'required|mimes:xlsx,xls,csv|max:10240' // 10MB max
         ]);
+
+        // Increase memory limit for large files
+        ini_set('memory_limit', '1G');
+        set_time_limit(300); // 5 minutes
 
         try {
             $file = $request->file('file');
@@ -631,10 +635,12 @@ class PasienController extends Controller
                 ]);
             }
 
-            // Process each row and save to pasiens table
+            // Process each row and save to pasiens table with memory optimization
             $importedCount = 0;
             $skippedCount = 0;
             $errors = [];
+            $chunkSize = 100; // Process in chunks to avoid memory issues
+            $totalRows = count($importResult['data']);
 
             foreach ($importResult['data'] as $index => $rowData) {
                 try {
@@ -664,6 +670,11 @@ class PasienController extends Controller
 
                     $importedCount++;
 
+                    // Clear memory every chunk
+                    if (($index + 1) % $chunkSize === 0) {
+                        gc_collect_cycles();
+                    }
+
                 } catch (\Exception $e) {
                     $skippedCount++;
                     $errors[] = "Baris " . ($index + 2) . ": " . $e->getMessage();
@@ -687,49 +698,85 @@ class PasienController extends Controller
     }
 
     /**
-     * Import Excel from PKM file (helper method)
+     * Import Excel from PKM file (helper method with memory optimization)
      */
     private function importExcelFromPKM($file)
     {
         try {
             $data = [];
             $extension = $file->getClientOriginalExtension();
+            $filePath = $file->getPathname();
+            $fileSize = $file->getSize();
+
+            // Check file size (limit to 10MB)
+            if ($fileSize > 10 * 1024 * 1024) {
+                return [
+                    'success' => false,
+                    'message' => 'File terlalu besar. Maksimal ukuran file adalah 10MB.'
+                ];
+            }
 
             // Handle CSV files
             if ($extension === 'csv') {
-                $csvData = array_map('str_getcsv', file($file->getPathname()));
-                $headers = array_shift($csvData); // Remove header
-                
-                foreach ($csvData as $row) {
+                $handle = fopen($filePath, 'r');
+                if (!$handle) {
+                    return [
+                        'success' => false,
+                        'message' => 'Tidak dapat membuka file CSV.'
+                    ];
+                }
+
+                // Read header
+                $headers = fgetcsv($handle);
+                if (!$headers) {
+                    fclose($handle);
+                    return [
+                        'success' => false,
+                        'message' => 'File CSV tidak valid atau kosong.'
+                    ];
+                }
+
+                // Read data row by row to save memory
+                $rowIndex = 0;
+                while (($row = fgetcsv($handle)) !== false) {
+                    $rowIndex++;
+                    
                     if (count($row) >= 17) {
                         $rowData = $this->mapRowToData($row);
                         if (!empty($rowData['nama_pasien']) || !empty($rowData['no_rekam_medik'])) {
                             $data[] = $rowData;
                         }
                     }
+
+                    // Clear memory every 100 rows
+                    if ($rowIndex % 100 === 0) {
+                        gc_collect_cycles();
+                    }
                 }
+                fclose($handle);
+
             } else {
-                // Handle Excel files - read directly using simple method
+                // Handle Excel files with memory optimization
                 $data = $this->readExcelData($file);
             }
 
             if (empty($data)) {
                 return [
                     'success' => false,
-                    'message' => 'Tidak ada data valid ditemukan dalam file.'
+                    'message' => 'Tidak ada data valid ditemukan dalam file. Pastikan file memiliki format yang benar dan minimal 17 kolom.'
                 ];
             }
 
             return [
                 'success' => true,
                 'data' => $data,
-                'message' => 'Data berhasil dibaca dari file'
+                'message' => 'Data berhasil dibaca dari file (' . count($data) . ' baris)'
             ];
 
         } catch (\Exception $e) {
             return [
                 'success' => false,
-                'message' => 'Error: ' . $e->getMessage()
+                'message' => 'Error membaca file: ' . $e->getMessage()
             ];
         }
     }

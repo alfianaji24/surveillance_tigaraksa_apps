@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PKM Button Test</title>
+</head>
+<body>
+    <input type="file" id="pkmFile" accept=".csv,.xlsx,.xls">
+    <button type="button" id="uploadPKMBtn">Upload & Preview</button>
+    
+    <script>
+        console.log("Testing PKM button...");
+        
+        const uploadPKMBtn = document.getElementById("uploadPKMBtn");
+        const pkmFile = document.getElementById("pkmFile");
+        
+        console.log("uploadPKMBtn:", uploadPKMBtn);
+        console.log("pkmFile:", pkmFile);
+        
+        if (uploadPKMBtn) {
+            uploadPKMBtn.addEventListener("click", function() {
+                console.log("Button clicked!");
+                alert("Button is working!");
+            });
+            console.log("Event listener added");
+        } else {
+            console.error("Button not found!");
+        }
+    </script>
+</body>
+</html>
