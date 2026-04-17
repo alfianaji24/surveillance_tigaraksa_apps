@@ -96,7 +96,134 @@
         </div>
     @endif
     
+    <!-- Mobile Menu Overlay -->
+    <div id="mobileMenuOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden hidden"></div>
+    
     <!-- Include all scripts -->
     <x-scripts />
+    
+    <!-- Mobile Menu Script -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Mobile menu script loading...');
+        
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const sidebar = document.getElementById('sidebar');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        
+        console.log('Elements found:', {
+            button: !!mobileMenuButton,
+            sidebar: !!sidebar,
+            overlay: !!mobileMenuOverlay
+        });
+        
+        if (mobileMenuButton && sidebar && mobileMenuOverlay) {
+            // Toggle mobile menu
+            mobileMenuButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('Mobile menu button clicked!');
+                
+                const isHidden = sidebar.classList.contains('-translate-x-full');
+                console.log('Sidebar hidden:', isHidden);
+                
+                if (isHidden) {
+                    // Show sidebar
+                    sidebar.classList.remove('-translate-x-full');
+                    sidebar.classList.add('translate-x-0');
+                    mobileMenuOverlay.classList.remove('hidden');
+                    console.log('Sidebar shown');
+                } else {
+                    // Hide sidebar
+                    sidebar.classList.add('-translate-x-full');
+                    sidebar.classList.remove('translate-x-0');
+                    mobileMenuOverlay.classList.add('hidden');
+                    console.log('Sidebar hidden');
+                }
+            });
+            
+            // Close mobile menu when clicking overlay
+            mobileMenuOverlay.addEventListener('click', function() {
+                console.log('Overlay clicked - closing menu');
+                sidebar.classList.add('-translate-x-full');
+                sidebar.classList.remove('translate-x-0');
+                mobileMenuOverlay.classList.add('hidden');
+            });
+            
+            // Close mobile menu when clicking on menu links
+            const menuLinks = sidebar.querySelectorAll('a');
+            console.log('Menu links found:', menuLinks.length);
+            menuLinks.forEach(function(link) {
+                link.addEventListener('click', function() {
+                    console.log('Menu link clicked - closing menu');
+                    sidebar.classList.add('-translate-x-full');
+                    sidebar.classList.remove('translate-x-0');
+                    mobileMenuOverlay.classList.add('hidden');
+                });
+            });
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 1024) {
+                    sidebar.classList.remove('-translate-x-full');
+                    sidebar.classList.add('translate-x-0');
+                    mobileMenuOverlay.classList.add('hidden');
+                }
+            });
+            
+            console.log('Mobile menu event listeners added successfully!');
+        } else {
+            console.error('Mobile menu elements not found!');
+        }
+    });
+    </script>
+    
+    <!-- Mobile Menu CSS -->
+    <style>
+    /* Ensure mobile menu styles are applied */
+    #sidebar {
+        transition: transform 0.3s ease-in-out;
+    }
+    
+    #sidebar.-translate-x-full {
+        transform: translateX(-100%);
+    }
+    
+    #sidebar.translate-x-0 {
+        transform: translateX(0);
+    }
+    
+    /* Mobile specific styles */
+    @media (max-width: 1023px) {
+        #sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            z-index: 50;
+            background-color: rgb(22, 163, 74);
+        }
+        
+        #mobileMenuOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 40;
+        }
+    }
+    
+    @media (min-width: 1024px) {
+        #sidebar {
+            position: relative !important;
+            transform: none !important;
+        }
+        
+        #mobileMenuOverlay {
+            display: none !important;
+        }
+    }
+    </style>
 </body>
 </html>

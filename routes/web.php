@@ -38,6 +38,9 @@ Route::get('/', function () {
 Route::get('/test-form', [TestController::class, 'testForm'])->name('test.form');
 Route::post('/test-submit', [TestController::class, 'testSubmit'])->name('test.submit');
 
+// Download Template PKM (No Auth Required)
+Route::get('/pasien/download-template-pkm', [PasienController::class, 'downloadTemplatePKM'])->name('pasien.download-template-pkm');
+
 // Protected Routes
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
@@ -57,8 +60,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/import-to-database', [PasienController::class, 'importToDatabase'])->name('import-to-database');
         Route::post('/blast-data', [PasienController::class, 'blastData'])->name('blast-data');
         Route::post('/import-pkm', [PasienController::class, 'importPKM'])->name('import-pkm');
-        Route::get('/download-template-pkm', [PasienController::class, 'downloadTemplatePKM'])->name('download-template-pkm');
-        
+                
         // Sync Routes
         Route::get('/sync', [PasienSyncController::class, 'index'])->name('sync.index');
         Route::post('/sync/all', [PasienSyncController::class, 'syncAll'])->name('sync.all');

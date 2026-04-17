@@ -741,7 +741,7 @@ class PasienController extends Controller
                 while (($row = fgetcsv($handle)) !== false) {
                     $rowIndex++;
                     
-                    if (count($row) >= 17) {
+                    if (count($row) >= 1) {
                         $rowData = $this->mapRowToData($row);
                         if (!empty($rowData['nama_pasien']) || !empty($rowData['no_rekam_medik'])) {
                             $data[] = $rowData;
@@ -887,12 +887,12 @@ class PasienController extends Controller
      */
     public function downloadTemplatePKM()
     {
-        $templatePath = public_path('template_pkm/Template_Data_Diagnosa_PKM.xlsx');
+        $templatePath = public_path('template_upload_form/form_pkm.xlsx');
         
         if (!file_exists($templatePath)) {
             abort(404, 'Template tidak ditemukan');
         }
 
-        return response()->download($templatePath, 'Template_Data_Diagnosa_PKM.xlsx');
+        return response()->download($templatePath, 'form_pkm.xlsx');
     }
 }
