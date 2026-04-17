@@ -1390,7 +1390,7 @@
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2024 Puskesmas Tigaraksa - SI-PTM. Sistem Internal Monitoring Kesehatan. | <a href="#">Kebijakan Privasi</a> | <a href="#">Ketentuan Penggunaan</a></p>
+                <p>&copy; <span id="year"></span> Puskesmas Tigaraksa - SI-PTM. Sistem Internal Monitoring Kesehatan. | <a href="#">Kebijakan Privasi</a> | <a href="#">Ketentuan Penggunaan</a></p>
             </div>
         </div>
     </footer>
@@ -1402,7 +1402,7 @@
             const mobileMenu = document.getElementById('mobileMenu');
             mobileMenu.classList.toggle('active');
         }
-        
+        document.getElementById("year").innerHTML = new Date().getFullYear();
         // Smooth Scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
